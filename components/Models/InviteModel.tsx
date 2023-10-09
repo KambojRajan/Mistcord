@@ -8,7 +8,7 @@ import {
 import { useModel } from "@/Hooks/use-model-store";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Check, Copy,  RefreshCw } from "lucide-react";
+import { Check, Copy, RefreshCw } from "lucide-react";
 import { Button } from "../ui/button";
 import { useOrign } from "@/Hooks/use-orign";
 import { useState } from "react";
@@ -60,7 +60,7 @@ export const InviteModel = () => {
               className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
               value={inviteUrl}
             />
-            <Button disabled={isLoading}  size="icon">
+            <Button disabled={isLoading} size="icon">
               {coped ? (
                 <Check />
               ) : (

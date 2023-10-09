@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   ChevronDown,
@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useModel } from "../../Hooks/use-model-store"; 
+import { useModel } from "../../Hooks/use-model-store";
 
 import { ServerWithMemberWithProfile } from "@/types";
 import { MemberRole } from "@prisma/client";
@@ -30,7 +30,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({
   server,
   role,
 }: ServerHeaderProps) => {
-  const { onOpen } = useModel(); // Destructure onOpen from useModel
+  const { onOpen } = useModel();
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
@@ -46,7 +46,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({
         <DropdownMenuContent className="w-56 text-xs font-medium text-black dark:bg-neutral-700 space-y-[2px]">
           {isModerator && (
             <DropdownMenuItem
-              onClick={() => onOpen("invite", { server: undefined })} // Use lowercase "invite" instead of "Invite"
+              onClick={() => onOpen("invite", { server })}
               className="text-indigo-400 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"
             >
               Invite People
@@ -54,32 +54,47 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("editServer", { server })}
+              className="px-3 py-2 text-sm cursor-pointer"
+            >
               Server Settings
               <Settings className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("members", { server })}
+              className="px-3 py-2 text-sm cursor-pointer"
+            >
               Manage Members
               <Users className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
           {isModerator && (
-            <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("createChannel")}
+              className="px-3 py-2 text-sm cursor-pointer"
+            >
               Create channel
               <PlusCircle className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
           {isModerator && <DropdownMenuSeparator />}
           {isAdmin && (
-            <DropdownMenuItem className="text-rose-500 px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("deleteServer", { server })}
+              className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
+            >
               Delete Server
               <Trash className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
           {!isAdmin && (
-            <DropdownMenuItem className="text-rose-500 px-3 py-2 text-sm cursor-pointer">
+            <DropdownMenuItem
+              onClick={() => onOpen("leaveServer", { server })}
+              className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
+            >
               Leave Server
               <LogOut className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>

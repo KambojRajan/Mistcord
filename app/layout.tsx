@@ -3,9 +3,11 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "../components/Navbar";
-import { ThemeProvider } from "../app/Providers/ThemeProvider";
+import { ThemeProvider } from "../components/Providers/ThemeProvider";
 import { cn } from "@/lib/utils";
-import ModelProvider from "./Providers/ModelProvider";
+import ModelProvider from "../components/Providers/ModelProvider";
+import { Socket } from "socket.io";
+import { SocketProvider } from "@/components/Providers/SocketProvider";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -29,8 +31,10 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="discord-theme"
           >
-            <ModelProvider />
-            {children}
+            <SocketProvider>
+              <ModelProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
